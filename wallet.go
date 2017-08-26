@@ -1,7 +1,6 @@
 package veriumrpc
 
 import (
-	"bytes"
 	"crypto/tls"
 	"net/http"
 	"net/url"
@@ -47,19 +46,4 @@ func newHTTPClient(walletConf *WalletConf) (*http.Client, error) {
 	}
 
 	return &client, nil
-}
-
-func (wallet *Wallet) sendPost(jReq *jsonRequest) {
-
-	protocol := "http"
-	url := protocol + "://" + wallet.conf.Host
-	bodyReader := bytes.NewReader(jReq.marshalledJSON)
-	httpReq, err := http.NewRequest("POST", url, bodyReader)
-	httpReq.Close = true
-	httpReq.Header.Set("Content-Type", "application/json")
-
-	// Configure basic access authorization.
-	httpReq.SetBasicAuth(wallet.conf.User, wallet.conf.Password)
-
-	// To Continue ....
 }
